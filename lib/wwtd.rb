@@ -132,6 +132,9 @@ module WWTD
       end
       wants_bundle = gemfile || File.exist?(DEFAULT_GEMFILE)
 
+      # ensure that the config is a string so that ShellWords can parse it
+      config["env"] = config["env"].to_s
+      
       Shellwords.split(config["env"] || "").each do |part|
         name, value = part.split("=", 2)
         ENV[name] = value
